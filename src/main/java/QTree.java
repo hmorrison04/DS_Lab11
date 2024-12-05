@@ -22,8 +22,53 @@ public class QTree
 	public void playGame()
 	{
 		//??
-	
+		String kP = "Y";
+		String question = "a";
+		String answer;
+		
+		QNodes<String> duck = new QNodes<>(Strings.IS_IT_A + Strings.DUCK + "?");
+		QNodes<String> rock = new QNodes<>(Strings.IS_IT_A + Strings.ROCK + "?");
+		QNodes<String> root = new QNodes<>(Strings.IS_IT_ALIVE, duck,rock);
+		QNodes<String> curr = root;
+		while(kP.equals("Y"))
+		{
+			out.println(root.getVal());
+			answer = in.next().toLowerCase();
+//			if(answer.equals("y"))
+//			{
+//				out.println(root.getYes().getVal());
+//				answer = in.next().toLowerCase();
+				traverse(answer,curr);
+//			}
+//			else
+//			{
+//				out.println(root.getNo().getVal());
+//			}
+		}
         
+	}
+	private void traverse(String answer,QNodes<String> curr)
+	{
+		if(answer.equals("y"))
+		{
+			if(curr.getYes() != null)
+			{
+				curr = curr.getYes();
+				out.println(curr.getVal());
+				answer = in.next().toLowerCase();
+				traverse(answer,curr);
+			}
+		}
+		if(answer.equals("n"))
+		{
+			if(curr.getNo() != null)
+			{
+				curr = curr.getNo();
+				out.println(curr.getVal());
+				answer = in.next().toLowerCase();
+				traverse(answer,curr);
+			}
+		}
 	}
 	
 	
